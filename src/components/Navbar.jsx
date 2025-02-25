@@ -8,7 +8,7 @@ const Navbar = () => {
         sm:space-y-8 md:space-y-0 lg:space-y-0 
         space-x-0 md:space-x-6 lg:space-x-8 
         text-black font-medium lg:pl-[45%]">
-        <a href="#" className="font-bold relative after:absolute after:w-full after:h-[2px] after:bg-black after:bottom-[-2px] after:left-0">
+        <a href="#" className="font-bold relative after:absolute after:w-[130%] after:h-[2px] after:bg-black after:bottom-[-2px] after:left-[-10%]">
           Home
         </a>
         <a href="#" className="hover:underline">About</a>
