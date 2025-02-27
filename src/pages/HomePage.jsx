@@ -115,17 +115,16 @@ const HomePage = () => {
 
 
 
-        {/* Middle: Illustration */}
-<div className="lg:w-1/3 w-full flex justify-center">
-          <motion.img
-            src={guitaristImage}
-            alt="Guitarist"
-    className="w-full max-w-[800px]" // Adjust the max width as needed
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          />
-        </div>
+        <div className="lg:w-2/3 w-full flex justify-center">
+  <motion.img
+    src={guitaristImage}
+    alt="Guitarist"
+    className="w-full max-w-[200px] sm:max-w-[100px] md:max-w-[300px] lg:max-w-[500px] xl:max-w-[1000px]" 
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 1 }}
+  />
+</div>
 
        
       </section>
