@@ -118,74 +118,82 @@ const HomePage = () => {
 
      
 {/* -----------------------------------------------------------------------------------1----------------------------------------------------------------------------------- */}
-<section className="w-[80%] mx-auto mt-10 flex flex-col lg:flex-row items-center justify-between space-y-10 lg:space-y-0 lg:space-x-10"  data-section="1">
+<section className="w-[80%] mx-auto mt-10 flex flex-col md:flex-row items-center justify-between space-y-10 md:space-y-0 md:space-x-10" data-section="1">
+  {/* Left Side: Text & Video List */}
+  <div className="md:w-1/2 lg:w-1/3 w-full flex flex-col items-start relative space-y-4">
+    <h2 className="text-4xl font-bold">BOOK YOUR CONCERT TICKETS</h2>
+    <p className="text-lg font-semibold">100% Refunds for Cancellations*</p>
+    <p className="text-sm text-gray-800">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </p>
 
-
-        {/* Left Side: Text & Video List */}
-        <div className="lg:w-1/3 w-full flex flex-col items-start relative space-y-4">
-          <h2 className="text-4xl font-bold">BOOK YOUR CONCERT TICKETS</h2>
-          <p className="text-lg font-semibold">100% Refunds for Cancellations*</p>
-          <p className="text-sm text-gray-800">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          
-  <div className="relative w-full flex flex-col items-start">
-    {videos.map((video, index) => (
-      <motion.div
-        key={video.id}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: index === currentIndex ? 1 : 0.5 }}
-        transition={{ duration: 0.5 }}
-        className={`relative bg-white rounded-lg shadow-md mt-4 w-full max-w-[300px] ${index === currentIndex ? "block" : "hidden"}`}
-      >
-            <div className="relative group cursor-pointer">
-          <img src={video.thumbnail} alt={video.title} className="w-full h-[120px] lg:h-[150px] object-cover rounded-lg" />
-              <a
-            href={video.videoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition"
-              >
-            <FaPlay className="text-white text-xl lg:text-2xl" />
-              </a>
-            </div>
-        <div className="p-2 lg:p-4 text-left">
-          <h3 className="font-bold text-sm lg:text-lg">{video.title}</h3>
-          <p className="text-xs lg:text-sm text-gray-700">{video.location}</p>
-          <p className="text-xs lg:text-sm text-gray-600">{video.date}</p>
-            </div>
-      </motion.div>
-    ))}
+    {/* Video List Container with Partial Visibility */}
+    <div className="relative w-full flex flex-col items-start overflow-hidden max-h-[340px] md:max-h-[360px] lg:max-h-[380px]">
+      {videos.map((video, index) => (
+        <motion.div
+          key={video.id}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: index === currentIndex ? 1 : 0.5 }}
+          transition={{ duration: 0.5 }}
+          className={`relative bg-white rounded-lg shadow-md mt-4 w-full max-w-[300px] ${
+            index === currentIndex ? "block" : "hidden"
+          }`}
+        >
+          <div className="relative group cursor-pointer">
+            <img
+              src={video.thumbnail}
+              alt={video.title}
+              className="w-full h-[120px] lg:h-[150px] object-cover rounded-lg"
+            />
+            <a
+              href={video.videoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition"
+            >
+              <FaPlay className="text-white text-xl lg:text-2xl" />
+            </a>
           </div>
+          <div className="p-2 lg:p-4 text-left">
+            <h3 className="font-bold text-sm lg:text-lg">{video.title}</h3>
+            <p className="text-xs lg:text-sm text-gray-700">{video.location}</p>
+            <p className="text-xs lg:text-sm text-gray-600">{video.date}</p>
+          </div>
+        </motion.div>
+      ))}
+    </div>
 
-{/* ✅ Scroll Down Button - Now Always Visible */}
-{currentIndex < videos.length - 1 && (
+    {/* ✅ Scroll Down Button - Positioned at the end of the video list */}
+    {currentIndex < videos.length - 1 && (
   <div className="w-full flex justify-center items-center mt-4">
-    <button
-      onClick={handleScrollDown}
-      className="flex items-center justify-center w-10 h-10 lg:w-12 lg:h-12 bg-black text-white rounded-full shadow-lg"
-    >
-      <IoIosArrowDown size={20} />
-    </button>
+        <button
+          onClick={handleScrollDown}
+          className="flex items-center justify-center w-10 h-10 lg:w-12 lg:h-12 bg-black text-white rounded-full shadow-lg"
+        >
+          <IoIosArrowDown size={20} />
+        </button>
+      </div>
+    )}
   </div>
-)}
 
-        </div>
+  {/* Right Side: Image (Centered in md and lg screens) */}
+  <div className="md:w-1/2 lg:w-2/3 w-full flex justify-center">
+    <motion.img
+      src={guitaristImage}
+      alt="Guitarist"
+      className="w-full max-w-[200px] sm:max-w-[180px] md:max-w-[300px] lg:max-w-[400px] xl:max-w-[450px]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    />
+  </div>
+</section>
 
 
 
 
-        <div className="lg:w-2/3 w-full flex justify-center">
-  <motion.img
-    src={guitaristImage}
-    alt="Guitarist"
-    className="w-full max-w-[180px] sm:max-w-[160px] md:max-w-[320px] lg:max-w-[480px] xl:max-w-[500px]" 
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 1 }}
-  />
-</div>
 
-       
-      </section>
+
 
 
 
