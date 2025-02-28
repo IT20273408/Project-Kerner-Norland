@@ -5,6 +5,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import guitaristImage from "../images/guitarist.png";
+import guitarImage from "../images/guitar.png";
 
 const videos = [
   {
@@ -25,42 +26,64 @@ const videos = [
   },
 ];
 
+const sections = [
+  { id: 1, label: "BOOK YOUR CONCERT TICKETS" },
+  { id: 2, label: "WATCH YOUR FAVORITE ARTISTS ONSTAGE" },
+  { id: 3, label: "JOIN THE MAILING LIST" },
+  { id: 4, label: "FROM THE NEWSROOM" },
+];
+
 const HomePage = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+
   const [activeSection, setActiveSection] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0); // Added state for currentIndex
 
   useEffect(() => {
-    const sections = document.querySelectorAll("section");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(parseInt(entry.target.dataset.section));
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-
-    return () => {
-      sections.forEach((section) => observer.unobserve(section));
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.5, // When 50% of the section is in view
     };
+  
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(Number(entry.target.getAttribute("data-section")));
+        }
+      });
+    };
+  
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const sectionElements = document.querySelectorAll("[data-section]");
+  
+    sectionElements.forEach((section) => observer.observe(section));
+  
+    return () => sectionElements.forEach((section) => observer.unobserve(section));
   }, []);
-
+  
   const handleScrollDown = () => {
     setCurrentIndex((prev) => (prev < videos.length - 1 ? prev + 1 : prev));
   };
 
   return (
-    <div className="bg-[#E6D0BE] text-black  ">
+    <div className="bg-[#DDC3B4] text-black">
       <Navbar />
-
-
       
+      {/* Scroll Indicator */}
+      <div className="fixed right-10 top-1/2 transform -translate-y-1/2 flex flex-col items-end text-right">
+  <div className="text-xl font-bold">{`${activeSection.toString().padStart(2, '0')} / 04`}</div>
+  <div className="w-1 h-24 bg-gray-400 mt-2 relative rounded-lg overflow-hidden">
+    <motion.div
+      className="w-full bg-black absolute bottom-0 rounded-lg"
+      animate={{ height: `${(activeSection / sections.length) * 100}%` }}
+      transition={{ duration: 0.5 }}
+    ></motion.div>
+  </div>
+</div>
+
+     
 {/* -----------------------------------------------------------------------------------1----------------------------------------------------------------------------------- */}
-<section className="w-[80%] mx-auto mt-10 flex flex-col lg:flex-row items-center justify-between space-y-10 lg:space-y-0 lg:space-x-10">
+<section className="w-[80%] mx-auto mt-10 flex flex-col lg:flex-row items-center justify-between space-y-10 lg:space-y-0 lg:space-x-10"  data-section="1">
 
 
         {/* Left Side: Text & Video List */}
@@ -159,22 +182,13 @@ const HomePage = () => {
           ))}
         </div>
         <div className="text-center mt-10 ">
-        <button className="px-6 py-3 bg-black text-white rounded-lg shadow-md  hover:bg-white hover:text-black border border-black transition flex ml-auto ">
+        <button className="px-[32px] py-[4px] text-[14px] font-bold bg-black text-white  shadow-lg border border-black transition duration-300 hover:bg-white hover:text-black flex ml-auto">
   View Events and Register
 </button>
 
         </div>
-        {/* Right Side: Scroll Indicator */}
-      <div className="fixed right-10 top-1/2 transform -translate-y-1/2 flex flex-col items-end text-right">
-        <div className="text-xl font-bold">{`${activeSection} / 04`}</div>
-        <div className="w-1 h-24 bg-gray-400 mt-2 relative rounded-lg overflow-hidden">
-          <motion.div
-            className="w-full bg-black absolute bottom-0 rounded-lg"
-            animate={{ height: `${activeSection * 25}%` }}
-            transition={{ duration: 0.5 }}
-          ></motion.div>
-        </div>
-      </div></div>
+        
+      </div>
       </section>
 
       
@@ -182,28 +196,51 @@ const HomePage = () => {
 
       {/* -----------------------------------------------------------------------------------3----------------------------------------------------------------------------------- */}
 
-      {/* Join the Mailing List Section */}
-      <section className="bg-[#B3D9D9] py-20">
-        <div className="w-[80%] mx-auto flex flex-col lg:flex-row items-center">
-          <img src={guitaristImage} alt="Guitarist" className="w-1/2 max-w-[400px]" />
-          <div className="lg:w-1/2 text-center lg:text-left">
-            <h2 className="text-4xl font-bold">JOIN THE MAILING LIST</h2>
-            <p className="mt-4 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-            <div className="mt-6">
-              <button className="px-6 py-3 bg-black text-white rounded-lg shadow-md bg-black hover:bg-white hover:text-black border border-black transition">Subscribe</button>
-            </div>
+      <section className="bg-[#A7D1D2] py-20 " data-section="3">
+  <div className="w-[80%] mx-auto flex flex-col lg:flex-row items-center gap-4">
+    
+    {/* Image Section */}
+    <div className="flex justify-center w-full lg:w-1/2">
+      <img 
+        src={guitarImage} 
+        alt="Guitarist" 
+        className="max-w-[450px] w-full object-contain"
+      />
+    </div>
 
-            
-     
+    {/* Content Section */}
+    <div className="lg:w-1/2 text-center lg:text-left">
+    <h2 
+        className="text-[38px] leading-[46px] tracking-[0] text-black font-bold"
+        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+      >
+        JOIN THE <br className="hidden lg:block"/> MAILING LIST
+      </h2>
+      
+      <p className="mt-4  text-[18px] leading-[1.6] tracking-wide font-bold">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+      </p>
 
-          </div>
-        
-        </div>
-        
-      </section>
+      {/* 1px Black Border */}
+      <div className="border-t border-black w-full my-4"></div>
+
+      
+      <p className="mt-4  text-[14px] leading-[1.6] tracking-wide ">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+      </p>
+
+      <div className="mt-6">
+        <button className="px-[32px] py-[4px] text-[14px] font-bold bg-black text-white  shadow-lg border border-black transition duration-300 hover:bg-white hover:text-black">
+          Subscribe
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
 {/* -----------------------------------------------------------------------------------4----------------------------------------------------------------------------------- */}
       {/* From the Newsroom Section */}
-      <section className="bg-white mx-auto py-20">
+      <section className="bg-white mx-auto py-20" data-section="4">
       <div className="w-[80%] mx-auto ">
         <h2 className="text-4xl font-bold text-left">FROM THE NEWSROOM</h2>
         <p className="text-left text-gray-800 mt-4 max-w-3xl ">
@@ -228,7 +265,7 @@ const HomePage = () => {
           ))}
         </div>
         <div className="text-center mt-10">
-          <button className="px-6 py-3 bg-black text-white rounded-lg shadow-md bg-black hover:bg-white hover:text-black border border-black transition flex ml-auto">
+        <button className="px-[32px] py-[4px] text-[14px] font-bold bg-black text-white  shadow-lg border border-black transition duration-300 hover:bg-white hover:text-black flex ml-auto">
             Show Me More
           </button>
         </div>
