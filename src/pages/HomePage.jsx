@@ -69,23 +69,27 @@ const HomePage = () => {
   const newsData = [
     {
       id: 1,
-      image: "https://cdn.britannica.com/59/193059-050-219AF2CB/Avril-Lavigne.jpg?w=400&h=300&c=crop",
+      image: "https://www.wtnh.com/wp-content/uploads/sites/100/2022/12/AP19230031361205.jpg?w=2100&h=1440&crop=1",
       title: "Goo Goo Dolls announce 2023 UK and Ireland tour",
       date: "30th March 2022",
+      url: "https://www.wtnh.com/music-in-connecticut/the-goo-goo-dolls-to-rock-hartford-healthcare-amphitheatre-in-2023/",
     },
     {
       id: 2,
-      image: "https://cdn.britannica.com/59/193059-050-219AF2CB/Avril-Lavigne.jpg?w=400&h=300&c=crop",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3dNgMFKFB86YPKfu4jOZJedzxLjzVPdZMNg&s",
       title: "Avril Lavigne’s New Hit Single “Head Above Water”",
       date: "30th March 2022",
+      url: "https://www.ccmmagazine.com/news/avril-lavigne-performs-head-above-water-on-the-tonight-show/",
     },
     {
       id: 3,
-      image: "https://cdn.britannica.com/59/193059-050-219AF2CB/Avril-Lavigne.jpg?w=400&h=300&c=crop",
+      image: "https://live.staticflickr.com/3920/15145696577_0a0199c1ff_b.jpg",
       title: "Simple Plan Marks 20-Year Anniversary Of Iconic Album",
       date: "30th March 2022",
+      url: "https://thehardtimes.net/culture/simple-plan-learns-that-life-is-a-nightmare-in-their-40s-too/",
     },
   ];
+  
 
   const cards = [
     { id: "01", color: "bg-yellow-200", title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do." },
@@ -173,7 +177,7 @@ const HomePage = () => {
   <motion.img
     src={guitaristImage}
     alt="Guitarist"
-    className="w-full max-w-[200px] sm:max-w-[100px] md:max-w-[300px] lg:max-w-[500px] xl:max-w-[1000px]" 
+    className="w-full max-w-[180px] sm:max-w-[160px] md:max-w-[320px] lg:max-w-[480px] xl:max-w-[500px]" 
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     transition={{ duration: 1 }}
@@ -197,46 +201,47 @@ const HomePage = () => {
         <h2 className="text-4xl font-bold text-left">
           WATCH YOUR FAVORITE ARTISTS ONSTAGE
         </h2>
-        <p className="text-left mt-8 w-full max-w-[1200px] font-[400] whitespace-nowrap overflow-hidden text-ellipsis">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
+        <p className="text-left mt-8 w-full max-w-[1200px] font-[400] whitespace-normal overflow-visible">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</p>
+
+
 
 
 
 
 
         <div className="relative flex justify-center mt-10 space-x-[-40px] md:space-x-[-50px] overflow-hidden">
-      {cards.map((card, index) => (
-        <motion.div
-          key={card.id}
-          className={`p-6 ${card.color} rounded-lg shadow-md w-[320px] md:w-[360px] text-left relative transition-all duration-300 ${hoveredIndex === index ? "z-50" : "z-10"}`}
-          whileHover={{ y: -10 }}
-          onMouseEnter={() => setHoveredIndex(index)}
-          onMouseLeave={() => setHoveredIndex(null)}
-        >
-          <div className="flex justify-between items-start">
-            <p className="font-bold text-black max-w-[80%] leading-tight">{card.title}</p>
-            <div className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center border-2 border-black rounded-full text-sm font-bold text-black">
-              {card.id}
-            </div>
-            
-            
-          </div>
-          <p className="text-sm text-gray-800 mt-4">{card.description}</p>
-          
+  {cards.map((card, index) => (
+    <motion.div
+      key={card.id}
+      className={`p-6 ${card.color} rounded-lg shadow-md w-[90%] md:w-[360px] text-left relative transition-all duration-300 
+      ${hoveredIndex === index ? "z-50 scale-105" : "z-10 scale-100"}`}
+      whileHover={{ scale: 1.05 }} 
+      onMouseEnter={() => setHoveredIndex(index)}
+      onMouseLeave={() => setHoveredIndex(null)}
+    >
+      <div className="flex justify-between items-start">
+        <p className="font-bold text-black leading-tight text-sm md:text-base">{card.title}</p>
+        <div className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center border-2 border-black rounded-full text-xs md:text-sm font-bold text-black">
+          {card.id}
+        </div>
+      </div>
+      
+      {/* ✅ Hide description & para in mobile */}
+      <p className="text-xs md:text-sm text-gray-800 mt-4 hidden md:block">{card.description}</p>
+      <p className="text-xs md:text-sm text-black mt-4 font-[600] hidden md:block">{card.para}</p>
 
-        <p className="text-left text-sm text-black mt-4 font-[600]">
-        {card.para}
-        </p>
+      {/* ✅ Centered Play Button (Only Visible on Hover) */}
+      {hoveredIndex === index && (
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-black text-white flex items-center justify-center rounded-full text-xs md:text-sm font-bold">
+          Play
+        </div>
+      )}
+    </motion.div>
+  ))}
+</div>
 
-          {hoveredIndex === index && (
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-black text-white flex items-center justify-center rounded-full text-sm font-bold">
-              Play
-            </div>
-          )}
-        </motion.div>
-      ))}
-    </div>
 
 
 
@@ -309,8 +314,7 @@ const HomePage = () => {
         
 
 
-
-    <div className="flex flex-wrap justify-center gap-6 mt-20 relative">
+    <div className="flex flex-wrap gap-6 mt-20 relative">
   {newsData.map((news, index) => (
     <motion.div
       key={news.id}
@@ -321,7 +325,10 @@ const HomePage = () => {
       <div className="w-full h-1/2 relative">
         <img src={news.image} alt="News" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition">
-          <button className="w-14 h-14 text-[10px] flex items-center justify-center bg-black text-white rounded-full">
+          <button
+            className="w-14 h-14 text-[10px] flex items-center justify-center bg-black text-white rounded-full"
+            onClick={() => window.open(news.url, "_blank")}
+          >
             Read
           </button>
         </div>
