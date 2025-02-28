@@ -65,6 +65,28 @@ const HomePage = () => {
     setCurrentIndex((prev) => (prev < videos.length - 1 ? prev + 1 : prev));
   };
 
+
+  const newsData = [
+    {
+      id: 1,
+      image: "https://cdn.britannica.com/59/193059-050-219AF2CB/Avril-Lavigne.jpg?w=400&h=300&c=crop",
+      title: "Goo Goo Dolls announce 2023 UK and Ireland tour",
+      date: "30th March 2022",
+    },
+    {
+      id: 2,
+      image: "https://cdn.britannica.com/59/193059-050-219AF2CB/Avril-Lavigne.jpg?w=400&h=300&c=crop",
+      title: "Avril Lavigne’s New Hit Single “Head Above Water”",
+      date: "30th March 2022",
+    },
+    {
+      id: 3,
+      image: "https://cdn.britannica.com/59/193059-050-219AF2CB/Avril-Lavigne.jpg?w=400&h=300&c=crop",
+      title: "Simple Plan Marks 20-Year Anniversary Of Iconic Album",
+      date: "30th March 2022",
+    },
+  ];
+
   return (
     <div className="bg-[#DDC3B4] text-black">
       <Navbar />
@@ -239,40 +261,58 @@ const HomePage = () => {
 </section>
 
 {/* -----------------------------------------------------------------------------------4----------------------------------------------------------------------------------- */}
-      {/* From the Newsroom Section */}
-      <section className="bg-white mx-auto py-20" data-section="4">
-      <div className="w-[80%] mx-auto ">
-        <h2 className="text-4xl font-bold text-left">FROM THE NEWSROOM</h2>
-        <p className="text-left text-gray-800 mt-4 max-w-3xl ">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-        <div className="flex flex-wrap justify-center gap-6 mt-10">
-          {[...Array(3)].map((_, index) => (
-            <motion.div
-              key={index}
-              className="relative w-60 rounded-lg shadow-md overflow-hidden"
-              whileHover={{ scale: 1.05 }}
-            >
-              {/* <img src={newsImage} alt="News" className="w-full h-40 object-cover" /> */}
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition">
-                <button className="px-4 py-2 bg-white text-black rounded-lg">Read</button>
-              </div>
-              <div className="p-4 bg-white text-center">
-                <h3 className="font-bold">Headline {index + 1}</h3>
-                <p className="text-sm text-gray-600">30th March 2022</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-        <div className="text-center mt-10">
-        <button className="px-[32px] py-[4px] text-[14px] font-bold bg-black text-white  shadow-lg border border-black transition duration-300 hover:bg-white hover:text-black flex ml-auto">
-            Show Me More
+  {/* From the Newsroom Section */}
+  <section className="bg-white mx-auto py-20" data-section="4">
+  <div className="w-[80%] mx-auto">
+    <h2 className="text-[38px] leading-[46px] tracking-[0] text-black font-bold font-['Bebas Neue']">
+      FROM THE NEWSROOM
+    </h2>
+    <p className="text-left mt-8 w-full max-w-[1200px] font-[400] whitespace-nowrap overflow-hidden text-ellipsis">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </p>
+        
+
+
+
+    <div className="flex flex-wrap justify-center gap-6 mt-10 relative">
+  {newsData.map((news, index) => (
+    <motion.div
+      key={news.id}
+      className="relative w-72 h-72 rounded-lg shadow-lg overflow-hidden cursor-pointer bg-white"
+      whileHover={{ scale: 1.3, zIndex: 20 }}
+    >
+      {/* Image Section */}
+      <div className="w-full h-1/2 relative">
+        <img src={news.image} alt="News" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+          <button className="w-14 h-14 text-[10px] flex items-center justify-center bg-black text-white rounded-full">
+            Read
           </button>
         </div>
-          
-        </div>
+      </div>
 
-      </section>
+      {/* Content Section (same size as image) */}
+      <div className="w-full h-1/2 p-4 flex flex-col justify-between">
+        <h3 className="font-bold text-left text-lg">{news.title}</h3> {/* Title size remains same on hover */}
+        <div className="flex justify-between items-center text-xs text-gray-600 mt-2">
+          <p className="text-left">News</p>
+          <p className="text-right">{news.date}</p>
+        </div>
+      </div>
+    </motion.div>
+  ))}
+</div>
+
+
+
+
+        <div className="text-center mt-10">
+      <button className="px-[32px] py-[4px] text-[14px] font-bold bg-black text-white shadow-lg border border-black transition duration-300 hover:bg-white hover:text-black flex ml-auto">
+        Show Me More
+      </button>
+    </div>
+      </div>
+    </section>
 
 
 
