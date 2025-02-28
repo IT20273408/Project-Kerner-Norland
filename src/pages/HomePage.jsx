@@ -162,11 +162,17 @@ const HomePage = () => {
               <FaPlay className="text-white text-xl lg:text-2xl" />
             </a>
           </div>
+      
           <div className="p-2 lg:p-4 text-left">
-            <h3 className="font-bold text-sm lg:text-lg">{video.title}</h3>
-            <p className="text-xs lg:text-sm text-gray-700">{video.location}</p>
-            <p className="text-xs lg:text-sm text-gray-600">{video.date}</p>
-          </div>
+  <h3 className="font-bold text-sm lg:text-lg mb-6">{video.title}</h3>
+  
+  <div className="flex justify-between mb-4">
+    <p className="text-xs lg:text-sm text-gray-700 text-left">{video.location}</p>
+    <p className="text-xs lg:text-sm text-gray-600 text-right">{video.date}</p>
+  </div>
+</div>
+
+
         </motion.div>
       ))}
     </div>
