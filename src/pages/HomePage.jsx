@@ -189,7 +189,7 @@ const HomePage = () => {
     <motion.img
       src={guitaristImage}
       alt="Guitarist"
-      className="w-full max-w-[200px] sm:max-w-[180px] md:max-w-[300px] lg:max-w-[400px] xl:max-w-[450px]"
+      className="w-full max-w-[200px] sm:max-w-[180px] md:max-w-[300px] lg:max-w-[500px] xl:max-w-[600px]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
