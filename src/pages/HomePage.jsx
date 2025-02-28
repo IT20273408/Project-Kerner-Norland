@@ -87,6 +87,15 @@ const HomePage = () => {
     },
   ];
 
+  const cards = [
+    { id: "01", color: "bg-yellow-200", title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do." },
+    { id: "02", color: "bg-orange-300", title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do." },
+    { id: "03", color: "bg-purple-300", title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do." },
+    { id: "04", color: "bg-lime-200", title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do." },
+    { id: "05", color: "bg-blue-300", title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do." }
+  ];
+  
+  const [hoveredIndex, setHoveredIndex] = useState(null);
   return (
     <div className="bg-[#DDC3B4] text-black">
       <Navbar />
@@ -183,36 +192,63 @@ const HomePage = () => {
 
 {/* -----------------------------------------------------------------------------------2----------------------------------------------------------------------------------- */}
 
-<section className=" mx-auto py-20 bg-white" data-section="2">
-<div className="w-[80%] mx-auto ">
+<section className="mx-auto py-20 bg-white" data-section="2">
+      <div className="w-[90%] md:w-[80%] mx-auto">
         <h2 className="text-4xl font-bold text-left">
           WATCH YOUR FAVORITE ARTISTS ONSTAGE
         </h2>
-        <p className="text-gray-800 mt-4 max-w-3xl text-left  ">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <p className="text-left mt-8 w-full max-w-[1200px] font-[400] whitespace-nowrap overflow-hidden text-ellipsis">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
-        <div className="flex flex-wrap justify-center gap-6 mt-10">
-          {[...Array(5)].map((_, index) => (
-            <motion.div
-              key={index}
-              className="p-6 bg-white rounded-lg shadow-md w-52 text-center"
-              whileHover={{ scale: 1.05 }}
-            >
-              <p className="font-bold">Lorem ipsum dolor</p>
-              <p className="text-sm text-gray-600 mt-2">Lorem ipsum dolor sit amet.</p>
-            </motion.div>
-          ))}
-        </div>
+
+
+
+
+
+        <div className="relative flex justify-center mt-10 space-x-[-40px] md:space-x-[-50px] overflow-hidden">
+      {cards.map((card, index) => (
+        <motion.div
+          key={card.id}
+          className={`p-6 ${card.color} rounded-lg shadow-md w-[320px] md:w-[360px] text-left relative transition-all duration-300 ${hoveredIndex === index ? "z-50" : "z-10"}`}
+          whileHover={{ y: -10 }}
+          onMouseEnter={() => setHoveredIndex(index)}
+          onMouseLeave={() => setHoveredIndex(null)}
+        >
+          <div className="flex justify-between items-start">
+            <p className="font-bold text-black max-w-[80%] leading-tight">{card.title}</p>
+            <div className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center border-2 border-black rounded-full text-sm font-bold text-black">
+              {card.id}
+            </div>
+            
+            
+          </div>
+          <p className="text-sm text-gray-800 mt-4">{card.description}</p>
+          
+
+        <p className="text-left text-sm text-black mt-4 font-[600]">
+        {card.para}
+        </p>
+
+          {hoveredIndex === index && (
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-black text-white flex items-center justify-center rounded-full text-sm font-bold">
+              Play
+            </div>
+          )}
+        </motion.div>
+      ))}
+    </div>
+
+
+
+
+
         <div className="text-center mt-10 ">
         <button className="px-[32px] py-[4px] text-[14px] font-bold bg-black text-white  shadow-lg border border-black transition duration-300 hover:bg-white hover:text-black flex ml-auto">
-  View Events and Register
-</button>
-
+            View Events and Register
+          </button>
         </div>
-        
       </div>
-      </section>
-
+    </section>
       
 
 
@@ -274,7 +310,7 @@ const HomePage = () => {
 
 
 
-    <div className="flex flex-wrap justify-center gap-6 mt-10 relative">
+    <div className="flex flex-wrap justify-center gap-6 mt-20 relative">
   {newsData.map((news, index) => (
     <motion.div
       key={news.id}
@@ -294,7 +330,7 @@ const HomePage = () => {
       {/* Content Section (same size as image) */}
       <div className="w-full h-1/2 p-4 flex flex-col justify-between">
         <h3 className="font-bold text-left text-lg">{news.title}</h3> {/* Title size remains same on hover */}
-        <div className="flex justify-between items-center text-xs text-gray-600 mt-2">
+        <div className="flex justify-between items-center text-xs text-gray-600 mt-4"> {/* Increased margin-top here */}
           <p className="text-left">News</p>
           <p className="text-right">{news.date}</p>
         </div>
