@@ -36,15 +36,14 @@ const sections = [
 const HomePage = () => {
 
   const [activeSection, setActiveSection] = useState(1);
-  const [currentIndex, setCurrentIndex] = useState(0); // Added state for currentIndex
-
+  const [currentIndex, setCurrentIndex] = useState(0); 
   useEffect(() => {
     const observerOptions = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.5, // When 50% of the section is in view
-    };
-  
+      threshold: 0.5, 
+  };
+
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -52,7 +51,7 @@ const HomePage = () => {
         }
       });
     };
-  
+
     const observer = new IntersectionObserver(observerCallback, observerOptions);
     const sectionElements = document.querySelectorAll("[data-section]");
   
@@ -60,7 +59,7 @@ const HomePage = () => {
   
     return () => sectionElements.forEach((section) => observer.unobserve(section));
   }, []);
-  
+
   const handleScrollDown = () => {
     setCurrentIndex((prev) => (prev < videos.length - 1 ? prev + 1 : prev));
   };
@@ -100,26 +99,35 @@ const HomePage = () => {
   ];
   
   const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  
   return (
     <div className="bg-[#DDC3B4] text-black">
       <Navbar />
-      
-      {/* Scroll Indicator */}
-      <div className="fixed right-10 top-1/2 transform -translate-y-1/2 flex flex-col items-end text-right">
+     
+<div className="fixed right-10 top-1/2 transform -translate-y-1/2 flex flex-col items-end text-right">
   <div className="text-xl font-bold">{`${activeSection.toString().padStart(2, '0')} / 04`}</div>
   <div className="w-1 h-24 bg-gray-400 mt-2 relative rounded-lg overflow-hidden">
     <motion.div
-      className="w-full bg-black absolute bottom-0 rounded-lg"
-      animate={{ height: `${(activeSection / sections.length) * 100}%` }}
+      className="w-full absolute bottom-0 rounded-lg"
+      animate={{
+        height: `${100 / sections.length}%`,
+        top: `${(activeSection - 1) * (100 / sections.length)}%`, 
+      }}
       transition={{ duration: 0.5 }}
+      style={{ backgroundColor: 'black' }} 
     ></motion.div>
   </div>
 </div>
 
+
+
+
+
      
 {/* -----------------------------------------------------------------------------------1----------------------------------------------------------------------------------- */}
 <section className="w-[80%] mx-auto mt-10 flex flex-col md:flex-row items-center justify-between space-y-10 md:space-y-0 md:space-x-10" data-section="1">
-  {/* Left Side: Text & Video List */}
+
   <div className="md:w-1/2 lg:w-1/3 w-full flex flex-col items-start relative space-y-4">
     <h2 className="text-4xl font-bold">BOOK YOUR CONCERT TICKETS</h2>
     <p className="text-lg font-semibold">100% Refunds for Cancellations*</p>
@@ -127,7 +135,7 @@ const HomePage = () => {
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     </p>
 
-    {/* Video List Container with Partial Visibility */}
+    
     <div className="relative w-full flex flex-col items-start overflow-hidden max-h-[340px] md:max-h-[360px] lg:max-h-[380px]">
       {videos.map((video, index) => (
         <motion.div
@@ -163,7 +171,7 @@ const HomePage = () => {
       ))}
     </div>
 
-    {/* ✅ Scroll Down Button - Positioned at the end of the video list */}
+
     {currentIndex < videos.length - 1 && (
   <div className="w-full flex justify-center items-center mt-4">
         <button
@@ -176,7 +184,7 @@ const HomePage = () => {
     )}
   </div>
 
-  {/* Right Side: Image (Centered in md and lg screens) */}
+
   <div className="md:w-1/2 lg:w-2/3 w-full flex justify-center">
     <motion.img
       src={guitaristImage}
@@ -218,31 +226,29 @@ const HomePage = () => {
 
 
 
-
-        <div className="relative flex justify-center mt-10 space-x-[-40px] md:space-x-[-50px] overflow-hidden">
+<div className="relative flex justify-center mt-10 space-x-[-40px] md:space-x-[-50px] overflow-hidden">
   {cards.map((card, index) => (
     <motion.div
       key={card.id}
-      className={`p-6 ${card.color} rounded-lg shadow-md w-[90%] md:w-[360px] text-left relative transition-all duration-300 
+      className={`p-6 ${card.color} rounded-lg shadow-md w-[70%] sm:w-[75%] md:w-[360px] text-left relative transition-all duration-300 
       ${hoveredIndex === index ? "z-50 scale-105" : "z-10 scale-100"}`}
       whileHover={{ scale: 1.05 }} 
       onMouseEnter={() => setHoveredIndex(index)}
       onMouseLeave={() => setHoveredIndex(null)}
     >
       <div className="flex justify-between items-start">
-        <p className="font-bold text-black leading-tight text-sm md:text-base">{card.title}</p>
-        <div className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center border-2 border-black rounded-full text-xs md:text-sm font-bold text-black">
+        <p className="font-bold text-black leading-tight text-[10px] sm:text-[11px] md:text-base">{card.title}</p>
+        <div className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center border-2 border-black rounded-full text-[8px] sm:text-[9px] md:text-sm font-bold text-black">
           {card.id}
         </div>
       </div>
       
-      {/* ✅ Hide description & para in mobile */}
-      <p className="text-xs md:text-sm text-gray-800 mt-4 hidden md:block">{card.description}</p>
-      <p className="text-xs md:text-sm text-black mt-4 font-[600] hidden md:block">{card.para}</p>
 
-      {/* ✅ Centered Play Button (Only Visible on Hover) */}
+      <p className="text-[10px] sm:text-[11px] md:text-sm text-gray-800 mt-4 hidden md:block">{card.description}</p>
+      <p className="text-[10px] sm:text-[11px] md:text-sm text-black mt-4 font-[600] hidden md:block">{card.para}</p>
+
       {hoveredIndex === index && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-black text-white flex items-center justify-center rounded-full text-xs md:text-sm font-bold">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-black text-white flex items-center justify-center rounded-full text-[10px] sm:text-[11px] md:text-sm font-bold">
           Play
         </div>
       )}
@@ -269,8 +275,7 @@ const HomePage = () => {
 
       <section className="bg-[#A7D1D2] py-20 " data-section="3">
   <div className="w-[80%] mx-auto flex flex-col lg:flex-row items-center gap-4">
-    
-    {/* Image Section */}
+
     <div className="flex justify-center w-full lg:w-1/2">
       <img 
         src={guitarImage} 
@@ -279,7 +284,6 @@ const HomePage = () => {
       />
     </div>
 
-    {/* Content Section */}
     <div className="lg:w-1/2 text-center lg:text-left">
     <h2 
         className="text-[38px] leading-[46px] tracking-[0] text-black font-bold"
@@ -292,7 +296,6 @@ const HomePage = () => {
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
       </p>
 
-      {/* 1px Black Border */}
       <div className="border-t border-black w-full my-4"></div>
 
       
@@ -310,7 +313,7 @@ const HomePage = () => {
 </section>
 
 {/* -----------------------------------------------------------------------------------4----------------------------------------------------------------------------------- */}
-  {/* From the Newsroom Section */}
+
   <section className="bg-white mx-auto py-20" data-section="4">
   <div className="w-[80%] mx-auto">
     <h2 className="text-[38px] leading-[46px] tracking-[0] text-black font-bold font-['Bebas Neue']">
@@ -329,7 +332,7 @@ const HomePage = () => {
       className="relative w-72 h-72 rounded-lg shadow-lg overflow-hidden cursor-pointer bg-white"
       whileHover={{ scale: 1.3, zIndex: 20 }}
     >
-      {/* Image Section */}
+
       <div className="w-full h-1/2 relative">
         <img src={news.image} alt="News" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition">
@@ -342,10 +345,10 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Content Section (same size as image) */}
+
       <div className="w-full h-1/2 p-4 flex flex-col justify-between">
-        <h3 className="font-bold text-left text-lg">{news.title}</h3> {/* Title size remains same on hover */}
-        <div className="flex justify-between items-center text-xs text-gray-600 mt-4"> {/* Increased margin-top here */}
+        <h3 className="font-bold text-left text-lg">{news.title}</h3> 
+        <div className="flex justify-between items-center text-xs text-gray-600 mt-4"> 
           <p className="text-left">News</p>
           <p className="text-right">{news.date}</p>
         </div>
